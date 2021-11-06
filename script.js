@@ -1,69 +1,51 @@
-// ============= variables ================== //
+const randomNumber = Math.floor(Math.random()*99+1);
+const userGuess = document.querySelector("#input");
+const resultDiv = document.querySelector(".result");
+const historyDiv = document.querySelector(".history");
 
-const randomNumber = Math.floor(Math.random()*100+1)
+
+
+historyDiv.innerHTML = "";
+
 let chances = 5;
+
 let isWin = false;
 
-// ==================== variables ==================== //
-
-// =============== imports ========================= //
-
-const Userguess = document.querySelector("#number")
-const resultDiv = document.querySelector(".result")
-const historyDiv = document.querySelector(".history")
-const submitButton = document.querySelector("#submit")
-
-
-
-// =============== imports ========================= //
-
-// =================== main function ================ //
-
-const GuessingGame = () => {
-    const guess = Userguess.value;
+function game() {
     let result;
-
+    let guess = userGuess.value;
     if (guess > 100 || guess < 1) {
-        result = "Guess a number in the range of 1 & 100"
-        resultDiv.innerHTML = `<h4>${result}</h4>`
-
-    } else if ( chances && !isWin ) {
+        result = "Guess a number between 1 and 100";
+        resultDiv.innerHTML = `<h4>${result}</h4>`;
+    }else if (chances && !isWin) {
+        let guess = userGuess.value;
         if (randomNumber == guess) {
-            result = "You Won";
+            result = "You won!";
             isWin = true;
-        } else if ( randomNumber < guess ) {
+        } else if (randomNumber < guess) {
             if (chances == 1) {
-                result = `Game Over, The number is ${randomNumber}`
-            } else {
-                result = "You too high! 😢";
-                isWin = false
+                result = `Game Over!<br>The Number is ${randomNumber}`;
+            }else {
+                result = "You too high";
             }
-            
-        }else if ( randomNumber > guess ) {
+        }else {
             if (chances == 1) {
-                result = `Game Over, The number is ${randomNumber}`
-            } else {
-            result = "You too low! 😢";
-            isWin = false
+                result = `Game Over!<br>The Number is ${randomNumber}`;
+            }else {
+                result = "You too low!";
             }
         }
         chances--;
-        historyDiv.innerHTML += `<h4>You Guessed ${guess}</h4>`
-        return resultDiv.innerHTML = `<h4>${result}</h4>`
+        historyDiv.innerHTML += `<h4>You Guessed ${guess}</h4>`;
+        return resultDiv.innerHTML = `<h4>${result}</h4>`;
     }
     
 }
 
-// ================= main function =================//
 
-// ================== reload function ==============//
-
-const Reload = () => {
-    if (!chances || isWin)
-    location.reload()
+function reload() {
+    if (!chances || isWin) {
+        location.reload();
+    }
+    
 }
-
-// ================== reload function ===============//
-
-submitButton.addEventListener('click', GuessingGame)
-
